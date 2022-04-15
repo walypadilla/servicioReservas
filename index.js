@@ -10,10 +10,14 @@ const app = express();
 // configurar CORS
 app.use(cors());
 
+// Lectura y parseo del body
+app.use(express.json());
+
 // base de datos
 dbConnection();
 
 // rutas
+app.use('/api/', require('./routes/index.routes'));
 
 app.listen(PORT, () => {
 	console.log('server corriendo');
