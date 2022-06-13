@@ -8,6 +8,7 @@ const UserModel = Schema({
 	password: { type: String, require: true },
 	google: { type: Boolean, default: false },
 	estado: { type: Boolean, default: true },
+	img: { type: String },
 	role: { type: String, require: true, default: 'USER_ROLE' },
 });
 

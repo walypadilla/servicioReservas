@@ -13,10 +13,20 @@
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
+    "excel4node": "^1.7.2",
+    "exceljs": "^4.3.0",
     "express": "^4.17.3",
+    "express-fileupload": "^1.4.0",
     "express-validator": "^6.14.0",
+    "google-auth-library": "^8.0.2",
     "i": "^0.3.7",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.2.10"
+    "mime": "^3.0.0",
+    "mime-types": "^2.1.35",
+    "moment": "^2.29.3",
+    "mongoose": "^6.2.10",
+    "pdfkit": "^0.13.0",
+    "pdfkit-construct": "^1.2.3",
+    "uuid": "^8.3.2"
   }
 }

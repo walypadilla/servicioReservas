@@ -8,12 +8,33 @@ const { generarJWT } = require('../helpers/jwt.helpers');
     ================================================
 */
 const getUsers = async (req, res) => {
-	const user = await User.find({}, 'name lastName email telefono role google');
+	const desde = Number(req.query.desde) || 0;
 
-	res.json({
-		ok: true,
-		user,
-	});
+	try {
+		// ejecutando los dos procesos en simultaneo
+		const [user, total] = await Promise.all([
+			User.find(
+				{ estado: true },
+				'name lastName email telefono role google img'
+			)
+				.skip(desde)
+				.limit(10),
+
+			User.countDocuments(),
+		]);
+
+		res.json({
+			ok: true,
+			user,
+			total,
+		});
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({
+			ok: false,
+			msg: 'Error en los logs... Hable con un administrador.',
+		});
+	}
 };
 
 /*  ================================================
@@ -72,7 +93,7 @@ const updateUser = async (req, res) => {
 		const usuarioDB = await User.findById(uid);
 
 		if (!usuarioDB) {
-			return res.status(404).json({
+			return res.status(402).json({
 				ok: false,
 				msg: 'No existe un usuario por ese ID.',
 			});
@@ -118,7 +139,7 @@ const deleteUser = async (req, res) => {
 		const usuarioDB = await User.findById(uid);
 		// validando si el usuario existe
 		if (!usuarioDB) {
-			res.status(404).json({
+			res.status(402).json({
 				ok: false,
 				msg: 'No existe un usuario por ese id.',
 			});
@@ -154,11 +175,12 @@ const restoreUser = async (req, res) => {
 		const usuarioDB = await User.findById(uid);
 		// validando si el usuario existe
 		if (!usuarioDB) {
-			res.status(404).json({
+			res.status(402).json({
 				ok: false,
 				msg: 'No existe un usuario por ese id.',
 			});
 		}
+
 		// cambiando estado a false
 		usuarioDB.estado = true;
 

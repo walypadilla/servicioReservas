@@ -5,10 +5,11 @@ const { SECRET_KEY_JWT } = require('../config/env.config');
     JWT GENERAR
     ================================================
 */
-const generarJWT = (uid) => {
+const generarJWT = (uid, nombre) => {
 	return new Promise((resolve, reject) => {
 		const payload = {
 			uid,
+			nombre,
 		};
 		jwt.sign(
 			payload,
